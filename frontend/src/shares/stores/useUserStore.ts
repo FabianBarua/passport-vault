@@ -25,6 +25,7 @@ const getInitialUser = () => {
 
 const getInitialDoingLogin = () => {
     const doingLoginLocal = localStorage.getItem("doingLogin")
+    console.log(doingLoginLocal)
     return doingLoginLocal ? JSON.parse(doingLoginLocal) : false
 }
 
@@ -36,6 +37,7 @@ const verifyLogin = async () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       }
     )
     const data : User | null = await response.json()
@@ -52,8 +54,8 @@ export const useUserStore = create<UserStore>((set) => ({
         chrome?.storage?.sync?.set({ user: data });
         window.localStorage.setItem("user", JSON.stringify(data));
 
-        chrome?.storage?.sync?.set({ isLoggingIn: false });
-        window.localStorage.setItem("isLoggingIn", JSON.stringify(false));
+        chrome?.storage?.sync?.set({ doingLogin: false });
+        window.localStorage.setItem("doingLogin", JSON.stringify(false));
         return data;
     },
     logout: () => {
@@ -61,8 +63,8 @@ export const useUserStore = create<UserStore>((set) => ({
         chrome?.storage?.sync?.set({ user: null });
         window.localStorage.removeItem("user");
 
-        chrome?.storage?.sync?.set({ isLoggingIn: false });
-        window.localStorage.setItem("isLoggingIn", JSON.stringify(false));
+        chrome?.storage?.sync?.set({ doingLogin: false });
+        window.localStorage.setItem("doingLogin", JSON.stringify(false));
 
         fetch("http://localhost:5000/api/v1/auth/logout", {
             method: "GET",

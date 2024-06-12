@@ -25,12 +25,15 @@ export const LoginForm = () => {
 
     chrome?.storage?.sync?.set({ doingLogin: true });
     window.localStorage.setItem("doingLogin", JSON.stringify(true) )
-    
+    useUserStore.setState({ doingLogin: true })
     window.open("http://localhost:5000/api/v1/login/google", "_blank")
   }
 
   return(
     <>  
+    <div className=" w-full h-full p-8 pt-6 flex flex-col gap-1">
+      
+
         <div className=" text-center  flex flex-col gap-2  bg-default-100 items-center justify-center  mx-auto my-2 border border-default-200 rounded-xl w-full py-4 ">
           <div className=" flex gap-2 justify-center items-center">
           <h1 className="text-2xl font-bold">Passport Vault
@@ -60,6 +63,8 @@ export const LoginForm = () => {
         </div>
 
         <Footer />
+
+        </div>
     </>
   )
 }
