@@ -7,19 +7,19 @@ import { Tooltip } from '@nextui-org/react'
 const ALL_PATHS = [
   {
     id: 1,
-    icon: <HomeIcon />,
+    icon: <HomeIcon size={20} />,
     text: 'Inicio',
     path: '/'
   },
   {
     id: 2,
-    icon: <BookCheckIcon />,
+    icon: <BookCheckIcon size={20} />,
     text: 'Generador',
     path: '/gen'
   },
   {
     id: 3,
-    icon: <User2Icon />,
+    icon: <User2Icon size={20} />,
     text: 'Cuenta',
     path: '/account'
   }
@@ -37,7 +37,7 @@ const FooterButton = ({ icon, text, onClick, path }: { icon: ReactNode, text: st
         } className={`
         ${window.location.hash.split('#')[1] === path ? ' bg-default-50/80' : ' '
             }
-          transition-colors hover:bg-default-50/60 text-default-400 rounded-2xl h-12 w-full flex justify-center items-center`}>
+          transition-colors hover:bg-default-50/60 text-default-400 rounded-2xl h-10 w-full flex justify-center items-center`}>
             {icon}
         </button>
 
@@ -56,7 +56,7 @@ const PrivateRoutes = () => {
             {
                 user?.id
                   ? (
-                    <div className=' flex flex-col  min-h-96'>
+                    <div className=' flex flex-col h-[452px]'>
                         <div
                         className=' flex-1 h-full w-full flex flex-col '>
                             <Outlet />
