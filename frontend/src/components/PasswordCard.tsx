@@ -1,5 +1,6 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { Copy, ExternalLink, Lock, Menu, Pencil, RectangleEllipsis, Trash2, User } from 'lucide-react'
+import { toast } from 'sonner'
 const copyToClipboard = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text)
@@ -18,6 +19,7 @@ export const PasswordCard = ({
     website: string
   }) => {
   return (
+   <>
       <div className='w-full hover:bg-default-100 p-1 justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-l-large rounded-r-lg flex gap-3'>
         <div className=' size-12 flex justify-center items-center bg-default-100 border border-default-200 rounded-xl'>
           <Lock width={16} />
@@ -42,6 +44,7 @@ export const PasswordCard = ({
                 onClick={
                   () => {
                     copyToClipboard(email)
+                    toast.success('Usuario copiado')
                   }
                 }
                 key="user">Copiar Usuario</DropdownItem>
@@ -52,6 +55,7 @@ export const PasswordCard = ({
                 onClick={
                   () => {
                     copyToClipboard(password)
+                    toast.success('Contraseña copiada')
                   }
                 }
                 key="pass">Copiar Contraseña</DropdownItem>
@@ -85,6 +89,7 @@ export const PasswordCard = ({
           </Dropdown>
         </div>
       </div>
+      </>
 
   )
 }
