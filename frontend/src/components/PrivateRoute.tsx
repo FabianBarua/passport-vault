@@ -56,12 +56,15 @@ const PrivateRoutes = () => {
             {
                 user?.id
                   ? (
-                    <div className=' flex flex-col h-[452px]'>
+                    <div className=' flex flex-col  h-[35rem] '>
                         <div
-                        className=' flex-1 h-full w-full flex flex-col '>
+                        style={{
+                          height: 'calc(35rem - 56px)'
+                        }}
+                        className='  w-full flex flex-col '>
                             <Outlet />
                         </div>
-                        <div className=" w-full bg-default-100 flex justify-stretch items-center p-2 gap-2 rounded-t-2xl">
+                        <div className=" w-full bg-default-100 h-[56px] flex justify-stretch items-center p-2 gap-2 rounded-t-2xl">
                             {ALL_PATHS.map((path) => (
                                 <FooterButton key={path.id} icon={path.icon} text={path.text} onClick={() => navigate(path.path)} path={path.path} />
                             ))}
