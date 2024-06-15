@@ -32,7 +32,7 @@ const getInitialDoingLogin = () => {
 }
 
 const getInitialPasswordMaster = () => {
-  const passwordMasterLocal = localStorage.getItem('master')
+  const passwordMasterLocal = JSON.parse(localStorage.getItem('master') || 'null')
   return passwordMasterLocal || null
 }
 
@@ -67,7 +67,7 @@ export const useUserStore = create<UserStore>((set) => ({
     return data
   },
   logout: () => {
-    set({ user: null, doingLogin: false })
+    set({ user: null, doingLogin: false, passwordMaster: null })
 
     fetch('http://localhost:5000/api/v1/auth/logout', {
       method: 'GET',
@@ -88,6 +88,6 @@ useUserStore.subscribe(
     window.localStorage.setItem('doingLogin', JSON.stringify(state.doingLogin))
 
     chrome?.storage?.sync?.set({ master: state.passwordMaster })
-    window.localStorage.setItem('master', state.passwordMaster || 'null')
+    window.localStorage.setItem('master', JSON.stringify(state.passwordMaster))
   }
 )

@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import { useUserStore } from '../shares/stores/useUserStore'
 import { useNavigate } from 'react-router-dom'
 import { ButtonHide } from './ButtonHide'
+import { Key } from 'lucide-react'
 
 interface PasswordInputInterface {
   id:string
@@ -38,6 +39,7 @@ export const SetMaster = () => {
 
     if (master !== confirm) {
       toast.error('Las llaves maestras no coinciden')
+      return
     }
 
     localStorage.setItem('master', master)
@@ -49,12 +51,18 @@ export const SetMaster = () => {
   }
 
   return (
-    <form className="p-4" onSubmit={handleSave}>
-      <header className="flex py-4 flex-initial text-large font-semibold flex-col items-center gap-1 px-0 text-center" id=":r2:">
-        <h1 className="text-xl">Ingresar llave maestra</h1>
-        <p className="text-small font-normal text-default-500">Las contraseñas guardadas se cifrarán con esta llave maestra, que no se guardará en la base de datos.</p>
-      </header>
-        <div className=' gap-2 flex flex-col'>
+    <form className="p-8 flex flex-col  gap-2 " onSubmit={handleSave}>
+      <header className=" text-center  flex flex-col gap-2  bg-default-100 items-center justify-center  mx-auto border border-default-200 rounded-xl w-full py-4 ">
+          <div className=" flex gap-2 justify-center items-center">
+            <h1 className="text-2xl font-bold">Llave maestra</h1>
+            <Button color='primary' variant='faded' isIconOnly size='sm'><Key size={16} /></Button>
+          </div>
+
+        </header>
+
+        <p className="text-small leading-4  text-center my-2 font-normal text-default-400">Las contraseñas guardadas se cifrarán con esta llave maestra, que no se guardará en la base de datos.</p>
+
+        <div className='  gap-2 flex flex-col'>
 
         {
           allInputs.map((input, i) => (
@@ -81,9 +89,8 @@ export const SetMaster = () => {
           ))
         }
 
+        <Button className="  w-full " color='primary' type='submit'>Guardar</Button>
         </div>
-
-        <Button className="" color='primary' type='submit'>Guardar</Button>
 
     </form>
   )

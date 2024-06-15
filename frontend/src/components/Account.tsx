@@ -22,7 +22,10 @@ export const Account = () => {
     e.preventDefault()
     const inputs = new FormData(e.currentTarget)
     const master = inputs.get('master')?.toString().trim()
-
+    if (master === passwordMaster) {
+      toast.error('La llave maestra nueva no puede ser igual a la actual')
+      return
+    }
     if (!master || master === '') {
       toast.error('Ambos campos son requeridos')
       return
@@ -40,25 +43,25 @@ export const Account = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
 
-            className=' flex-1  h-full w-full flex flex-col relative  gap-3 '>
-                <div className=' px-4 pt-4'>
+            className=' flex-1  h-full w-full flex flex-col relative  gap-3  '>
+                <div className='  px-4 pt-4'>
                     <h1 className=' text-2xl font-bold'>Cuenta</h1>
                     <p className=' text-default-500 text-base'>Bienvenido {user?.email}</p>
                 </div>
-                <div className=' w-full h-[calc(100%-150px)] p-4 '>
+                <div className=' w-full h-[calc(100%-150px)] px-4 '>
                     <form onSubmit={handleSaveMaster} className=' flex gap-2 items-end  w-full'>
-
+                      <div className=' w-full'>
+                      <label className=' text-default-400 '>Llave Maestra</label>
                       <Input
-                      label='Llave maestra'
-                      labelPlacement='outside'
-                      type={hideMaster ? 'password' : 'text'}
-                      defaultValue={passwordMaster || ''}
-                      name='master'
-                      endContent={
+                        type={hideMaster ? 'password' : 'text'}
+                        defaultValue={passwordMaster || ''}
+                        name='master'
+                        endContent={
                         <ButtonHide isVisible={!hideMaster} setIsVisible={setHideMaster} />
                       }
                       >
                       </Input>
+                      </div>
                       <Button className='' type='submit' variant='faded'>Actualizar</Button>
                     </form>
                 </div>
