@@ -27,7 +27,6 @@ export const SetMaster = () => {
 
   const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(e.currentTarget)
     const inputs = new FormData(e.currentTarget)
     const master = inputs.get('master')?.toString().trim()
     const confirm = inputs.get('confirm')?.toString().trim()

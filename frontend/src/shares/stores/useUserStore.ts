@@ -27,7 +27,6 @@ const getInitialUser = () => {
 
 const getInitialDoingLogin = () => {
   const doingLoginLocal = localStorage.getItem('doingLogin')
-  console.log(doingLoginLocal)
   return doingLoginLocal ? JSON.parse(doingLoginLocal) : false
 }
 

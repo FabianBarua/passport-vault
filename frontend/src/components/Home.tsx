@@ -52,7 +52,6 @@ const filterRelevant = async ({
     chrome?.runtime &&
     chrome?.runtime.id
   ) {
-    console.log('chrome')
     const tab = await getCurrentTab()
     url = tab?.url
   } else {
