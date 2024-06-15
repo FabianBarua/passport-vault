@@ -9,6 +9,7 @@ import { Home } from './components/Home'
 import { Gen } from './components/Gen'
 import { Account } from './components/Account'
 import { AnimatePresence } from 'framer-motion'
+import { SetMaster } from './components/SetMaster'
 
 const RoutesAnimated = () => {
   const location = useLocation()
@@ -21,6 +22,7 @@ const RoutesAnimated = () => {
           <Route element={<Account />} path="/account" />
         </Route>
         <Route element={<LoginForm />} path="/login" />
+        <Route element={<SetMaster />} path="/set-master" />
       </Routes>
     </AnimatePresence>
   )

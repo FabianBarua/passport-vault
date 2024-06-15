@@ -47,9 +47,9 @@ const FooterButton = ({ icon, text, onClick, path }: { icon: ReactNode, text: st
 }
 
 const PrivateRoutes = () => {
-  const { user } = useUserStore()
+  const { user, passwordMaster } = useUserStore()
   const navigate = useNavigate()
-
+  // passwordMaster cant be null
   return (
         <>
 
@@ -62,7 +62,9 @@ const PrivateRoutes = () => {
                           height: 'calc(35rem - 56px)'
                         }}
                         className='  w-full flex flex-col '>
-                            <Outlet />
+                            {
+                              passwordMaster ? <Outlet /> : <Navigate to="/set-master" />
+                            }
                         </div>
                         <div className=" w-full bg-default-100 h-[56px] flex justify-stretch items-center p-2 gap-2 rounded-t-2xl">
                             {ALL_PATHS.map((path) => (

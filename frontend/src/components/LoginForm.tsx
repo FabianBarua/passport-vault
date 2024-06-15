@@ -21,8 +21,6 @@ export const LoginForm = () => {
       return
     }
 
-    chrome?.storage?.sync?.set({ doingLogin: true })
-    window.localStorage.setItem('doingLogin', JSON.stringify(true))
     useUserStore.setState({ doingLogin: true })
     window.open('http://localhost:5000/api/v1/login/google', '_blank')
   }

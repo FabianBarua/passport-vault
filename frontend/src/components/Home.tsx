@@ -6,10 +6,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Plus, FolderOpen } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { PasswordCard } from './PasswordCard'
+import { useDebouncedCallback } from 'use-debounce'
 
 export interface PasswordInterface {
   id: number
   email: string
+  password: string
   website: string
   avatar?: string
   favorite?: boolean
@@ -64,7 +66,7 @@ const filterRelevant = async ({
   return filtered
 }
 
-const categories = [{
+const CATEGORIES = [{
   id: 1,
   name: 'Relevantes',
   filter: filterRelevant
@@ -87,6 +89,7 @@ const initialPasswords = [
     email: 'john.doe@example.com',
     website: 'http://localhost:5173',
     avatar: 'https://avatars.githubusercontent.com/u/86160567?s=200&v=4',
+    password: '123',
     favorite: true
   },
   {
@@ -94,13 +97,15 @@ const initialPasswords = [
     email: 'jane.smith@example.com',
     website: 'janesmith.net',
     avatar: 'https://randomuser.me/api/portraits/women/10.jpg',
+    password: '123',
     favorite: false
   },
   {
     id: 3,
     email: 'michael.brown@example.com',
-    website: 'michaelbrown.org',
+    website: 'https://www.npmjs.com',
     avatar: 'https://randomuser.me/api/portraits/men/15.jpg',
+    password: '123',
     favorite: true
   },
   {
@@ -108,6 +113,7 @@ const initialPasswords = [
     email: 'emily.jones@example.com',
     website: 'emilyjones.info',
     avatar: 'https://randomuser.me/api/portraits/women/20.jpg',
+    password: '123',
     favorite: false
   },
   {
@@ -115,6 +121,7 @@ const initialPasswords = [
     email: 'william.johnson@example.com',
     website: 'williamjohnson.io',
     avatar: 'https://randomuser.me/api/portraits/men/25.jpg',
+    password: '123',
     favorite: true
   },
   {
@@ -122,6 +129,7 @@ const initialPasswords = [
     email: 'pedro@gmail.com',
     website: 'pedro.com',
     avatar: 'https://randomuser.me/api/portraits/men/21.jpg',
+    password: '123',
     favorite: false
   },
   {
@@ -129,6 +137,7 @@ const initialPasswords = [
     email: 'alice.wilson@example.com',
     website: 'alicewilson.net',
     avatar: 'https://randomuser.me/api/portraits/women/30.jpg',
+    password: '123',
     favorite: true
   },
   {
@@ -136,6 +145,7 @@ const initialPasswords = [
     email: 'robert.miller@example.com',
     website: 'robertmiller.com',
     avatar: 'https://randomuser.me/api/portraits/men/35.jpg',
+    password: '123',
     favorite: false
   },
   {
@@ -143,6 +153,7 @@ const initialPasswords = [
     email: 'linda.thomas@example.com',
     website: 'lindathomas.org',
     avatar: 'https://randomuser.me/api/portraits/women/40.jpg',
+    password: '123',
     favorite: true
   },
   {
@@ -150,6 +161,7 @@ const initialPasswords = [
     email: 'charles.moore@example.com',
     website: 'charlesmoore.io',
     avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
+    password: '123',
     favorite: false
   },
   {
@@ -157,44 +169,31 @@ const initialPasswords = [
     email: 'barbara.white@example.com',
     website: 'barbarawhite.net',
     avatar: 'https://randomuser.me/api/portraits/women/50.jpg',
-    favorite: true
-  },
-  {
-    id: 12,
-    email: 'thomas.harris@example.com',
-    website: 'thomasharris.com',
-    avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
-    favorite: false
-  },
-  {
-    id: 13,
-    email: 'nancy.clark@example.com',
-    website: 'nancyclark.info',
-    avatar: 'https://randomuser.me/api/portraits/women/60.jpg',
-    favorite: true
-  },
-  {
-    id: 14,
-    email: 'daniel.lewis@example.com',
-    website: 'daniellewis.org',
-    avatar: 'https://randomuser.me/api/portraits/men/65.jpg',
-    favorite: false
-  },
-  {
-    id: 15,
-    email: 'patricia.walker@example.com',
-    website: 'patriciawalker.com',
-    avatar: 'https://randomuser.me/api/portraits/women/70.jpg',
+    password: '123',
     favorite: true
   }
 ]
 
 export const Home = () => {
-  const [categorie, setCategorie] = useState(categories[0])
+  const [categorie, setCategorie] = useState(CATEGORIES[0])
 
   const [passwordData] = useState<PasswordInterface[]>(initialPasswords)
 
   const [passwordsFiltered, setPasswordsFiltered] = useState<PasswordInterface[]>([])
+
+  const debounced = useDebouncedCallback(
+    (value) => {
+      handleSearch(value)
+    },
+    400
+  )
+
+  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const search = e.target.value
+    const passwords = passwordData.filter((password) => password.website.includes(search))
+    const filteredByCategory = await categorie.filter({ passwords })
+    setPasswordsFiltered(filteredByCategory)
+  }
 
   useEffect(() => {
     const initialPasswords = async () => {
@@ -211,14 +210,16 @@ export const Home = () => {
       animate={{ opacity: 1 }}
       className=' h-full flex flex-col'>
       <div className=' flex gap-2 m-1 p-2  bg-default-100/40 rounded-2xl'>
-        <Input className=' flex-1' placeholder='Buscar en el cofre' />
+        <Input
+          onChange={debounced}
+        className=' flex-1' placeholder='Buscar en el cofre' />
         <Button color='primary' endContent={<FolderOpen width={16} />} >Cofre</Button>
         <Button isIconOnly variant='faded' className=' border-0 text-default-500' ><Plus size={20} /></Button>
       </div>
       <div className=' p-2 flex justify-center gap-2'>
 
         {
-          categories.map((category) => (
+          CATEGORIES.map((category) => (
             <Button
               key={category.id}
               variant={categorie.id === category.id ? 'faded' : 'light'}
@@ -237,22 +238,22 @@ export const Home = () => {
 
       <hr className=' border-default-200' />
       <AnimatePresence>
-      <ScrollShadow className=' p-3' hideScrollBar>
-        <motion.div
-        key={categorie.id}
-        className=' flex flex-col flex-1 gap-2'
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        >
+        <ScrollShadow className=' p-3' hideScrollBar>
+          <motion.div
+            key={categorie.id}
+            className=' flex flex-col flex-1 gap-2'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
 
-        {
-          passwordsFiltered.map((password) => (
-            <PasswordCard key={password.id} email={password.email} website={password.website} password={password.website} />
-          ))
+            {
+              passwordsFiltered.map((password) => (
+                <PasswordCard key={password.id} email={password.email} website={password.website} password={password.password} />
+              ))
             }
-        </motion.div>
-      </ScrollShadow>
+          </motion.div>
+        </ScrollShadow>
       </AnimatePresence>
 
     </motion.div>
