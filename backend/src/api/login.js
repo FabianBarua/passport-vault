@@ -8,8 +8,7 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   const userWithEmail = await User.findOne({ where: { email } }).catch(
-    (err) => {
-      console.log('Error: ', err);
+    () => {
     }
   );
 
@@ -30,7 +29,7 @@ router.post('/login', async (req, res) => {
     process.env.JWT_SECRET
   );
 
-  res.json({ message: 'Welcome Back!', token: jwtToken });
+  return res.json({ message: 'Welcome Back!', token: jwtToken });
 });
 
 module.exports = router;
