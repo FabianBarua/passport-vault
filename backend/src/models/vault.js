@@ -1,11 +1,11 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
-const { user } = require('./user');
+const user = require('./user');
 
 const Vault = sequelize.define('Vault', {
   website: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
@@ -21,7 +21,8 @@ const Vault = sequelize.define('Vault', {
   },
   favorite: {
     type: DataTypes.BOOLEAN,
-    allowNull: true
+    allowNull: true,
+    defaultValue: false
   }
 });
 

@@ -10,6 +10,7 @@ require('./auth/passport');
 require('./auth/passportGoogleSSO');
 
 require('./models/user');
+require('./models/vault');
 
 const passport = require('passport');
 const middlewares = require('./middlewares');
@@ -35,13 +36,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-  res.json({
-    message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
-  });
-});
-
-app.use('/api/v1', api);
+app.use('/api/', api);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
