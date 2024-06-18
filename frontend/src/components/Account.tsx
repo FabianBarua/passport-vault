@@ -5,12 +5,11 @@ import React, { useEffect, useState } from 'react'
 import { Button, Input } from '@nextui-org/react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { toast } from 'sonner'
 
 export const Account = () => {
   const { logout } = useUserStore()
   const navigate = useNavigate()
-  const { vault, refreshVault } = useVaultStore()
+  const { vault } = useVaultStore()
   const { user, passwordMaster } = useUserStore()
   const [hideMaster, setHideMaster] = useState(true)
 
@@ -25,20 +24,7 @@ export const Account = () => {
 
   const handleSaveMaster = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const inputs = new FormData(e.currentTarget)
-    const master = inputs.get('master')?.toString().trim()
-    if (master === passwordMaster) {
-      toast.error('La llave maestra nueva no puede ser igual a la actual')
-      return
-    }
-    if (!master || master === '') {
-      toast.error('Ambos campos son requeridos')
-      return
-    }
-
-    useUserStore.setState({ passwordMaster: master })
-
-    toast.success('Llave maestra guardada correctamente')
+    // TODO: Make a method to save the master password, encode (local) all passwords with the new master password and send to the server (/api/v1/vault/update-master) post, max 2 changes per month
   }
 
   return (
@@ -67,24 +53,14 @@ export const Account = () => {
                       >
                       </Input>
                       </div>
-                      <Button className='' type='submit' variant='faded'>Actualizar</Button>
+                      <Button disabled className='' type='submit' variant='faded'>Actualizar</Button>
                     </form>
 
-                      <pre>
+                      <pre className=' h-full overflow-auto'>
                         {
                           JSON.stringify(vault, null, 2)
                         }
                       </pre>
-                      <button
-                        onClick={
-                          () => {
-                            refreshVault()
-                          }
-                        }
-                        className=' bg-primary-500 text-white px-4 py-2 rounded-md'
-                      >
-                        Refresh
-                      </button>
 
                 </div>
                 <Button onClick={handleClick} color='danger' className=' bottom-3 -translate-x-1/2 left-1/2 absolute w-[calc(100%-32px)]' variant='faded'>Logout</Button>

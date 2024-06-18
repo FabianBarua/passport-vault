@@ -1,10 +1,12 @@
 import { Button, Input } from '@nextui-org/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { useUserStore } from '../shares/stores/useUserStore'
 import { useNavigate } from 'react-router-dom'
 import { ButtonHide } from './ButtonHide'
 import { Key } from 'lucide-react'
+import { decodeVault, useVaultStore } from '../shares/stores/useVaultStore'
+import { checkDecodeKey } from '../shares/utils'
 
 interface PasswordInputInterface {
   id:string
@@ -20,9 +22,14 @@ export const SetMaster = () => {
 
   const { passwordMaster } = useUserStore()
   const navigate = useNavigate()
+  const { getVault, vault } = useVaultStore()
+
+  useEffect(() => {
+    getVault({ needDecode: false })
+  }, [])
 
   if (passwordMaster) {
-    navigate('/')
+    // navigate('/')
   }
 
   const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,9 +48,18 @@ export const SetMaster = () => {
       return
     }
 
-    localStorage.setItem('master', master)
+    if (vault.length > 0) {
+      const isKeyValid = checkDecodeKey(master, vault[0].website)
+      if (!isKeyValid) {
+        toast.error('La llave maestra no es válida')
+        return
+      }
+    }
+
     chrome?.storage?.sync?.set({ master })
     useUserStore.setState({ passwordMaster: master })
+
+    decodeVault(vault, master)
 
     toast.success('Llave maestra guardada correctamente')
     navigate('/')

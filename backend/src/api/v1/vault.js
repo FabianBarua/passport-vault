@@ -3,6 +3,7 @@ const { isUserAuthenticated } = require('../../middlewares/auth');
 const Vault = require('../../models/vault');
 
 const router = express.Router();
+// todo add isUserAuthenticated middleware and change the userId to req.user.id
 
 router.get('/vault/', isUserAuthenticated, async (req, res) => {
   try {
@@ -35,10 +36,25 @@ router.get('/vault/', isUserAuthenticated, async (req, res) => {
 
 router.post('/vault/add', async (req, res) => {
   const {
-    website, email, username, password, favorite
+    vaultList
   } = req.body;
 
-  if (!website) {
+  if (
+    !vaultList
+    || !Array.isArray(vaultList)
+    || !vaultList.length
+  ) {
+    return res.json(
+      {
+        info: {
+          message: 'Faltan datos',
+          status: 400
+        }
+      }
+    );
+  }
+
+  if (!vaultList.every((vault) => vault.website !== undefined)) {
     return res.json(
       {
         info: {
@@ -50,14 +66,18 @@ router.post('/vault/add', async (req, res) => {
   }
 
   try {
-    const vault = await Vault.create({
-      website,
-      email,
-      username,
-      password,
-      favorite,
-      UserId: 1
-    });
+    const vault = await Vault.bulkCreate(
+      vaultList.map((item) => ({
+        website: item.website,
+        email: item.email || null,
+        username: item.username || null,
+        password: item.password || null,
+        favorite: item.favorite || false,
+        UserId: 1
+      })), {
+        returning: true
+      }
+    );
 
     return res.json(
       {
@@ -73,7 +93,8 @@ router.post('/vault/add', async (req, res) => {
       {
         info: {
           message: 'Error guardando los datos',
-          status: 500
+          status: 500,
+          stack: error.stack
         }
       }
     );

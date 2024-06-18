@@ -13,7 +13,7 @@ export const LoginForm = () => {
     if (doingLogin) {
       const data = await checkLogin()
       if (data) {
-        navigate('/')
+        navigate('/set-master')
         toast.success('Login exitoso!')
       } else {
         toast.error('Error al verificar login!')
