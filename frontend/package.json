@@ -21,11 +21,14 @@
     "react-router-dom": "^6.23.1",
     "sonner": "^1.5.0",
     "use-debounce": "^10.0.1",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "crypto-js": "^3.1.8"
+
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "2.0.0-beta.23",
     "@types/chrome": "^0.0.268",
+    "@types/crypto-js": "^4.2.2",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

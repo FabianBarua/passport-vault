@@ -1,17 +1,22 @@
-import { useNavigate } from 'react-router-dom'
-import { Button, Input } from '@nextui-org/react'
+import { useVaultStore } from '../shares/stores/useVaultStore'
 import { useUserStore } from '../shares/stores/useUserStore'
+import { ButtonHide } from '../components/ButtonHide'
+import React, { useEffect, useState } from 'react'
+import { Button, Input } from '@nextui-org/react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
-import { ButtonHide } from './ButtonHide'
 import { toast } from 'sonner'
 
 export const Account = () => {
   const { logout } = useUserStore()
   const navigate = useNavigate()
-
+  const { vault, refreshVault } = useVaultStore()
   const { user, passwordMaster } = useUserStore()
   const [hideMaster, setHideMaster] = useState(true)
+
+  useEffect(() => {
+
+  }, [])
 
   const handleClick = () => {
     logout()
@@ -64,6 +69,23 @@ export const Account = () => {
                       </div>
                       <Button className='' type='submit' variant='faded'>Actualizar</Button>
                     </form>
+
+                      <pre>
+                        {
+                          JSON.stringify(vault, null, 2)
+                        }
+                      </pre>
+                      <button
+                        onClick={
+                          () => {
+                            refreshVault()
+                          }
+                        }
+                        className=' bg-primary-500 text-white px-4 py-2 rounded-md'
+                      >
+                        Refresh
+                      </button>
+
                 </div>
                 <Button onClick={handleClick} color='danger' className=' bottom-3 -translate-x-1/2 left-1/2 absolute w-[calc(100%-32px)]' variant='faded'>Logout</Button>
             </motion.div>

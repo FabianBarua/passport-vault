@@ -1,5 +1,5 @@
-export function GoogleIcon() {
-    return (
+export function GoogleIcon () {
+  return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -24,5 +24,5 @@ export function GoogleIcon() {
           d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917"
         ></path>
       </svg>
-    );
-  }
+  )
+}

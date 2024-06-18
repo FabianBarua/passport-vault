@@ -33,7 +33,7 @@ router.get('/vault/', isUserAuthenticated, async (req, res) => {
   }
 });
 
-router.post('/vault/add', isUserAuthenticated, async (req, res) => {
+router.post('/vault/add', async (req, res) => {
   const {
     website, email, username, password, favorite
   } = req.body;
