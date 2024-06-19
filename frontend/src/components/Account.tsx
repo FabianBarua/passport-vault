@@ -2,7 +2,7 @@ import { useVaultStore } from '../shares/stores/useVaultStore'
 import { useUserStore } from '../shares/stores/useUserStore'
 import { ButtonHide } from '../components/ButtonHide'
 import React, { useEffect, useState } from 'react'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
@@ -12,6 +12,7 @@ export const Account = () => {
   const { vault } = useVaultStore()
   const { user, passwordMaster } = useUserStore()
   const [hideMaster, setHideMaster] = useState(true)
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   useEffect(() => {
 
@@ -29,7 +30,33 @@ export const Account = () => {
 
   return (
 
-            <motion.div
+<>
+
+<Modal
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      placement="center"
+    >
+<ModalContent className=' w-64'>
+  <ModalHeader>Atencion</ModalHeader>
+  <ModalBody>
+    <p className=' text-sm text-balance'>
+      Esta funcionalidad esta en desarrollo, por favor <strong>memoriza tu llave maestra actual</strong>.
+    </p>
+  </ModalBody>
+  <ModalFooter>
+    <Button
+      color="primary"
+
+      onClick={onOpenChange}
+    >
+      Aceptar
+    </Button>
+  </ModalFooter>
+</ModalContent>
+</Modal>
+
+<motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
@@ -53,7 +80,11 @@ export const Account = () => {
                       >
                       </Input>
                       </div>
-                      <Button disabled className='' type='submit' variant='faded'>Actualizar</Button>
+                      <Button disabled className='' type='submit' variant='faded'
+                        onPress={
+                          onOpen
+                        }
+                      >Actualizar</Button>
                     </form>
 
                       <pre className=' h-full overflow-auto'>
@@ -65,6 +96,8 @@ export const Account = () => {
                 </div>
                 <Button onClick={handleClick} color='danger' className=' bottom-3 -translate-x-1/2 left-1/2 absolute w-[calc(100%-32px)]' variant='faded'>Logout</Button>
             </motion.div>
+
+</>
 
   )
 }
