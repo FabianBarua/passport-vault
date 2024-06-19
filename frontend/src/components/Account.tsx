@@ -1,7 +1,7 @@
 import { useVaultStore } from '../shares/stores/useVaultStore'
 import { useUserStore } from '../shares/stores/useUserStore'
 import { ButtonHide } from '../components/ButtonHide'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
