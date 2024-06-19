@@ -14,10 +14,6 @@ export const Account = () => {
   const [hideMaster, setHideMaster] = useState(true)
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-  useEffect(() => {
-
-  }, [])
-
   const handleClick = () => {
     logout()
     navigate('/login')
