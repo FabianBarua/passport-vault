@@ -3,8 +3,8 @@ const passport = require('passport');
 
 const router = express.Router();
 
-const successLoginUrl = 'http://localhost:5000/api/v1/auth/google/success';
-const errorLoginUrl = 'http://localhost:5000/api/v1/auth/google/error';
+const successLoginUrl = 'http://localhost:5123/api/v1/auth/google/success';
+const errorLoginUrl = 'http://localhost:5123/api/v1/auth/google/error';
 
 router.get(
   '/login/google',

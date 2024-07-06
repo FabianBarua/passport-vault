@@ -18,7 +18,7 @@ const getVault = async () => {
 
 const fetchInitialData = async () => {
   try {
-    const response = await fetch('http://localhost:5000/api/v1/vault', {
+    const response = await fetch('http://localhost:5123/api/v1/vault', {
       credentials: 'include'
     })
 

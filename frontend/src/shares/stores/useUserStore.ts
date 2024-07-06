@@ -46,7 +46,7 @@ const getInitialPasswordMaster = () => {
 
 const verifyLogin = async () => {
   const response = await fetch(
-    'http://localhost:5000/api/v1/auth/user',
+    'http://localhost:5123/api/v1/auth/user',
     {
       method: 'GET',
       headers: {
@@ -85,7 +85,7 @@ export const useUserStore = create<UserStore>((set) => ({
   logout: () => {
     set({ user: null, doingLogin: false, passwordMaster: null })
 
-    fetch('http://localhost:5000/api/v1/auth/logout', {
+    fetch('http://localhost:5123/api/v1/auth/logout', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

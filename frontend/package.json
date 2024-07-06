@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iframe-resizer/child": "^5.1.4",
+    "@iframe-resizer/parent": "^5.1.4",
     "@nextui-org/react": "^2.4.1",
     "@nextui-org/system": "^2.2.1",
     "@nextui-org/theme": "^2.2.5",
+    "crypto-js": "^3.1.8",
     "framer-motion": "^11.2.10",
     "lucide-react": "^0.394.0",
     "next-themes": "^0.3.0",
@@ -21,9 +24,7 @@
     "react-router-dom": "^6.23.1",
     "sonner": "^1.5.0",
     "use-debounce": "^10.0.1",
-    "zustand": "^4.5.2",
-    "crypto-js": "^3.1.8"
-
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "2.0.0-beta.23",

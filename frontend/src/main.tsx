@@ -10,6 +10,7 @@ import { Gen } from './components/Gen'
 import { Account } from './components/Account'
 import { AnimatePresence } from 'framer-motion'
 import { SetMaster } from './components/SetMaster'
+import { SetPass } from './components/SetPass'
 
 const RoutesAnimated = () => {
   const location = useLocation()
@@ -23,6 +24,7 @@ const RoutesAnimated = () => {
         </Route>
         <Route element={<LoginForm />} path="/login" />
         <Route element={<SetMaster />} path="/set-master" />
+        <Route element={<SetPass />} path="/set-pass" />
       </Routes>
     </AnimatePresence>
   )

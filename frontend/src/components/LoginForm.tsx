@@ -22,7 +22,7 @@ export const LoginForm = () => {
     }
 
     useUserStore.setState({ doingLogin: true })
-    window.open('http://localhost:5000/api/v1/login/google', '_blank')
+    window.open('http://localhost:5123/api/v1/login/google', '_blank')
   }
 
   return (

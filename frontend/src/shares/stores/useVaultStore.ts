@@ -46,7 +46,7 @@ const getVault = async (
   }
 ) => {
   try {
-    const data = await fetch('http://localhost:5000/api/v1/vault', {
+    const data = await fetch('http://localhost:5123/api/v1/vault', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
