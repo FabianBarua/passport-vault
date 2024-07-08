@@ -1,6 +1,33 @@
 import '@iframe-resizer/child'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useVaultStore } from '../shares/stores/useVaultStore'
+import { ExternalLink } from 'lucide-react'
+
+const ButtonPassport = (
+  { email, onClick } : {
+    email: string,
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+  }) => {
+  return (
+    <button
+      onClick={onClick}
+    className='w-full transition-colors group/item text-left hover:bg-default-100 p-1 justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased  rounded-lg flex gap-3'>
+
+    <div className="flex flex-col  p-1  pl-3 flex-1 overflow-hidden">
+      <p className="text-small group-hover/item:text-primary text-default-400 text-ellipsis overflow-hidden">
+        Rellenar
+      </p>
+    <p className=" text-[15px] leading-6 text-default-500 group-hover/item:text-default-700  text-ellipsis overflow-hidden">
+      {email}
+    </p>
+    </div>
+
+      <div className=' size-12 group-hover/item:text-default-600 text-default-400  flex justify-center items-center bg-default-100 border border-default-200 rounded-xl'>
+        <ExternalLink width={16} />
+      </div>
+    </button>
+  )
+}
 
 export const SetPass = () => {
   const [url, setUrl] = useState<string>('')
@@ -44,18 +71,14 @@ export const SetPass = () => {
   }, [])
 
   return (
-    <form className="p-8 flex flex-col  gap-2 transition-all " >
-      <h1 className="text-2xl font-bold text-default-900" >{url}</h1>
+    <form className=" flex flex-col  gap-2 transition-all bg-default-50 " >
       {
         vaultFiltered.map((password) => (
-          <div key={password.id} className="flex flex-col gap-2">
-            <label className="text-default-500" >Email</label>
-            <input className="input" type="email" value={password.email} />
-            <label className="text-default-500" >Username</label>
-            <input className="input" type="text" value={password.username} />
-            <label className="text-default-500" >Password</label>
-            <input className="input" type="text" value={password.password} />
-          </div>
+          <ButtonPassport
+            key={password.id}
+            email={password.email || password.username || ''}
+            onClick={handleClick}
+          />
         ))
       }
     </form>

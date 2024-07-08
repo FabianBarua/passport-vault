@@ -17,11 +17,11 @@ document.head.insertAdjacentHTML('beforeend', `
     @keyframes fading-in {
       0% { 
         opacity: 0; 
-        transform:  scale(0.9) translateY(10px);
+        transform: translateY(20px);
       }
       100% { 
         opacity: 1; 
-        transform:  scale(1) translateY(0);
+        transform: translateY(0);
       }
       
     }
@@ -77,23 +77,28 @@ emailInputs.forEach(input => {
     const frame = document.createElement('iframe')
     frame.id = 'frame-email'
     frame.src = chrome.runtime.getURL('/#/set-pass')
+    console.log(frame.src)
 
     frame.style.position = 'absolute'
     frame.style.top = input.getBoundingClientRect().top + window.scrollY + input.offsetHeight + 5 + 'px'
     frame.style.left = input.getBoundingClientRect().left + window.scrollX + 'px'
     frame.style.width = input.offsetWidth + 'px'
-    frame.style.height = '100%'
-    frame.style.height = '150px'
-    frame.style.border = '1px solid black'
-    frame.style.borderRadius = '5px'
-    frame.style.animation = 'fading-in 300ms'
-    frame.style.background = '#18191a'
+    frame.style.height = '0px'
 
-    frame.style.transitionProperty = 'all'
+    frame.style.border = '0px solid black'
+    frame.style.borderRadius = '0.5rem'
+    frame.style.opacity = '0'
+
+    frame.style.background = 'transparent'
+
+    // only opacity
+
+    frame.style.transitionProperty = 'opacity'
+
     frame.style.transitionDuration = '300ms'
 
     frame.addEventListener('mouseleave', () => {
-      frame.style.animation = 'fading 0.5s'
+      frame.style.animation = 'fading 410ms'
       setTimeout(() => {
         frame.remove()
       }, 400)
@@ -106,7 +111,17 @@ emailInputs.forEach(input => {
         data: 'wwww.ejemplo.com'
       }, '*')
 
-      iframeResize({ log: false, license: 'GPLv3' }, frame)
+      iframeResize(
+        {
+          log: false,
+          license: 'GPLv3',
+          onResized: () => {
+            frame.style.animation = 'fading-in 300ms'
+            frame.style.opacity = '1'
+          }
+        },
+        frame
+      )
     }
 
     document.body.appendChild(frame)

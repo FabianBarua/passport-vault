@@ -2,7 +2,7 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@
 import { Copy, ExternalLink, Lock, Menu, Pencil, RectangleEllipsis, Trash2, User } from 'lucide-react'
 import { toast } from 'sonner'
 
-const copyToClipboard = async (text: string) => {
+export const copyToClipboard = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text)
   } catch (err) {
