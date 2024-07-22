@@ -32,8 +32,11 @@ const RoutesAnimated = () => {
           <Route element={<Account />} path="/account" />
         </Route>
         </Route>
+        <Route element= { <Layout /> }>
+
         <Route element={<LoginForm />} path="/login" />
         <Route element={<SetMaster />} path="/set-master" />
+        </Route>
         <Route element={<SetPass />} path="/set-pass" />
 
       </Routes>
