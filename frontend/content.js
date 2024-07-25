@@ -117,33 +117,39 @@ allInputs.forEach((input, i) => {
   )
 })
 
-// window.addEventListener('message', (event) => {
-//   if (event.data.type === 'getWebsiteUrl') {
-//     const url = new URL(window.location.href)
-//     event.source.postMessage({
-//       type: 'websiteUrl',
-//       url: url.hostname
-//     }, '*')
-//   }
+window.addEventListener('message', (event) => {
+  const {
+    emailInputs,
+    passwordInputs,
+    usernameInputs
+  } = getInputs()
 
-//   if (event.data.type === 'setPass') {
-//     const { email, username, password } = event.data.data
-//     emailInputs.forEach(input => {
-//       input.value = email
-//     })
-//     passwordInputs.forEach(input => {
-//       input.value = password
-//     })
-//     usernameInputs.forEach(input => {
-//       input.value = username
-//     })
+  if (event.data.type === 'getWebsiteUrl') {
+    const url = new URL(window.location.href)
+    event.source.postMessage({
+      type: 'websiteUrl',
+      url: url.hostname
+    }, '*')
+  }
 
-//     const frameEmail = document.getElementById('frame-email')
-//     const frameUsername = document.getElementById('frame-username')
-//     const framePassword = document.getElementById('frame-password')
+  if (event.data.type === 'setPass') {
+    const { email, username, password } = event.data.data
+    emailInputs.forEach(input => {
+      input.value = email
+    })
+    passwordInputs.forEach(input => {
+      input.value = password
+    })
+    usernameInputs.forEach(input => {
+      input.value = username
+    })
 
-//     if (frameEmail) frameEmail.remove()
-//     if (frameUsername) frameUsername.remove()
-//     if (framePassword) framePassword.remove()
-//   }
-// })
+    const frameEmail = document.getElementById('frame-email')
+    const frameUsername = document.getElementById('frame-username')
+    const framePassword = document.getElementById('frame-password')
+
+    if (frameEmail) frameEmail.remove()
+    if (frameUsername) frameUsername.remove()
+    if (framePassword) framePassword.remove()
+  }
+})

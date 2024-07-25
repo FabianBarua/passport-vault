@@ -11,7 +11,7 @@ const RoutesAnimated = () => {
   return (
     <AnimatePresence mode='wait'>
       <Routes location={location}>
-        <Route element={<SetPass />} path="/" />
+          <Route element={<SetPass />} path="/" />
       </Routes>
     </AnimatePresence>
   )
