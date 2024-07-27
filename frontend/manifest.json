@@ -7,7 +7,7 @@
       "default_popup": "index.html"
     },
     "background": {
-      "service_worker": "./public/background.js"
+      "service_worker": "./src/extension/background.ts"
     },
     "permissions": [
       "scripting",
@@ -26,7 +26,7 @@
     "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "js": ["./src/extension/content.js"],
       "run_at": "document_end"
     }
   ]

@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useDebouncedCallback } from 'use-debounce'
-import { useVaultStore, Vault } from '../shares/stores/useVaultStore'
+import { useVaultStore } from '../shares/stores/useVaultStore'
 import React, { useEffect, useState } from 'react'
 import { CATEGORIES } from './constants'
+import { Vault } from '../shares/types'
 
 export const useSearch = () => {
   const { vault } = useVaultStore()

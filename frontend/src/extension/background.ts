@@ -1,17 +1,10 @@
-import { decode } from '../src/shares/utils'
+import { Vault } from '../shares/types'
+import { decode } from '../shares/utils'
 
-const getMaster = async () => {
+const getMaster = async () : Promise<string> => {
   return new Promise((resolve) => {
     chrome.storage.sync.get('master', (data) => {
       resolve(data.master)
-    })
-  })
-}
-
-const getVault = async () => {
-  return new Promise((resolve) => {
-    chrome.storage.sync.get('vault', (data) => {
-      resolve(data.vault)
     })
   })
 }
@@ -28,7 +21,7 @@ const fetchInitialData = async () => {
 
     const jsonData = await response.json()
 
-    const vault = jsonData?.vault || []
+    const vault : Vault[] = jsonData?.vault || []
 
     const master = await getMaster()
 
@@ -57,19 +50,27 @@ const fetchInitialData = async () => {
   }
 }
 
-const checkVaultForUrl = async (url) => {
-  const vault = await getVault()
+// const getVault = async () => {
+//   return new Promise((resolve) => {
+//     chrome.storage.sync.get('vault', (data) => {
+//       resolve(data.vault)
+//     })
+//   })
+// }
 
-  const match = vault.find((item) => item.website === url)
+// const checkVaultForUrl = async (url) => {
+//   const vault = await getVault()
 
-  if (match) {
-    console.log('Credentials found:', match)
-  } else {
-    console.log('No credentials found for this website')
-  }
+//   const match = vault.find((item) => item.website === url)
 
-  return match
-}
+//   if (match) {
+//     console.log('Credentials found:', match)
+//   } else {
+//     console.log('No credentials found for this website')
+//   }
+
+//   return match
+// }
 
 chrome.runtime.onStartup.addListener(() => {
   fetchInitialData()

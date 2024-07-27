@@ -1,5 +1,4 @@
-import { FrameSetPass } from './src/components/FrameSetPass.js'
-
+import { FrameSetPass } from '../components/FrameSetPass.js'
 const insertStyle = () => {
   document.head.insertAdjacentHTML('beforeend', `
   <style>
@@ -151,5 +150,10 @@ window.addEventListener('message', (event) => {
     if (frameEmail) frameEmail.remove()
     if (frameUsername) frameUsername.remove()
     if (framePassword) framePassword.remove()
+  }
+
+  if (event.data.type === 'closeFrame') {
+    const existingFrame = document.getElementById('frame-set-pass')
+    existingFrame?.remove()
   }
 })

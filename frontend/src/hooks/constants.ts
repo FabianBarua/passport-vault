@@ -1,4 +1,4 @@
-import { Vault } from '../shares/stores/useVaultStore'
+import { Vault } from '../shares/types'
 
 async function getCurrentTab () {
   const queryOptions = { active: true, lastFocusedWindow: true }

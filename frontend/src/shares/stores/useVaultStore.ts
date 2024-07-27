@@ -2,15 +2,7 @@
 import { create } from 'zustand'
 import { useUserStore } from './useUserStore'
 import { decode, encode } from '../utils'
-
-export interface Vault {
-    id: number
-    website: string
-    email?: string
-    username?: string
-    password?: string
-    favorite: boolean
-}
+import { Vault } from '../types'
 
 export interface VaultStore {
     vault: Vault[]
