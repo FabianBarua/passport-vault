@@ -14,7 +14,7 @@ import { SetPass } from './components/SetPass'
 
 const Layout = () => {
   return (
-    <div className="flex min-h-44 w-[24rem] flex-col gap-1  bg-default-50   shadow-small">
+    <div className="flex min-h-44 w-[24rem] mx-auto my-auto flex-col gap-1  bg-default-50  lg:rounded-xl  lg:overflow-hidden shadow-small">
       <Outlet />
     </div>
   )
@@ -26,16 +26,15 @@ const RoutesAnimated = () => {
     <AnimatePresence mode='wait'>
       <Routes location={location}>
         <Route element={<Layout />}>
-        <Route element={<PrivateRoutes />}>
-          <Route element={<Home />} path="/" />
-          <Route element={<Gen />} path="/gen" />
-          <Route element={<Account />} path="/account" />
+          <Route element={<PrivateRoutes />}>
+            <Route element={<Home />} path="/" />
+            <Route element={<Gen />} path="/gen" />
+            <Route element={<Account />} path="/account" />
+          </Route>
         </Route>
-        </Route>
-        <Route element= { <Layout /> }>
-
-        <Route element={<LoginForm />} path="/login" />
-        <Route element={<SetMaster />} path="/set-master" />
+        <Route element={<Layout />}>
+          <Route element={<LoginForm />} path="/login" />
+          <Route element={<SetMaster />} path="/set-master" />
         </Route>
         <Route element={<SetPass />} path="/set-pass" />
 
@@ -55,8 +54,8 @@ export const AllRoutes = () => {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-  <Providers>
-        <AllRoutes />
+    <Providers>
+      <AllRoutes />
     </Providers>
   </React.StrictMode>
 )
