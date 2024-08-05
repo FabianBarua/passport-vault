@@ -1,7 +1,8 @@
 {
-    "manifest_version": 3,
     "name": "vite-ts-react-test",
+    "manifest_version": 3,
     "version": "1.0",
+    "minimum_chrome_version": "18.0",
     "description": "",
     "action": {
       "default_popup": "index.html"
@@ -11,9 +12,15 @@
     },
     "permissions": [
       "scripting",
-      "tabs",
       "activeTab",
-      "storage"
+      "storage",
+      "tabs", 
+      "idle", 
+      "notifications", 
+      "contextMenus", 
+      "unlimitedStorage", 
+      "webRequest", 
+      "webNavigation"
     ],
     "host_permissions": [
       "https://*/*",

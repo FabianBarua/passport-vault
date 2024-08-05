@@ -50,28 +50,11 @@ const fetchInitialData = async () => {
   }
 }
 
-// const getVault = async () => {
-//   return new Promise((resolve) => {
-//     chrome.storage.sync.get('vault', (data) => {
-//       resolve(data.vault)
-//     })
-//   })
-// }
-
-// const checkVaultForUrl = async (url) => {
-//   const vault = await getVault()
-
-//   const match = vault.find((item) => item.website === url)
-
-//   if (match) {
-//     console.log('Credentials found:', match)
-//   } else {
-//     console.log('No credentials found for this website')
-//   }
-
-//   return match
-// }
-
 chrome.runtime.onStartup.addListener(() => {
   fetchInitialData()
+})
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  console.log(sender.tab.id)
+  console.log(request.referrer)
 })
